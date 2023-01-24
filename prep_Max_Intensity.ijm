@@ -10,6 +10,7 @@ run("Sharpen", "stack");
 run("Subtract Background...", "rolling=50 stack");
 //run("Brightness/Contrast...");
 run("Enhance Contrast", "saturated=0.35");
+run("8-bit");
 
 
 // rename stack appropriately at the end
