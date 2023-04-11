@@ -14,6 +14,9 @@ imNameSh = substring(imName, 0, lengthOf(imName)-4);
 
 // get image dimensions
 getDimensions(width, height, channels, slices, frames);
+getPixelSize(unitRes, pixX, pixY, pixZ);
+Stack.getUnits(Xunit, Yunit, Zunit, Time, Value);
+frameInterval = Stack.getFrameInterval();
 
 // start the CLIJ engine for processing
 //run("CLIJ2 Macro Extensions", "cl_device=[Intel(R) HD Graphics 530]");
@@ -33,7 +36,7 @@ for (i = 0; i < frames; i++)
 	image1 = imNameSh+ "-1.tif";
 	Ext.CLIJ2_push(image1);
 	image2 = imNameSh+ "-2.tif";
-	sigma = 10.0;
+	sigma = 20.0;
 	Ext.CLIJ2_extendedDepthOfFocusSobelProjection(image1, image2, sigma);
 	Ext.CLIJ2_pull(image2);
 
@@ -56,3 +59,6 @@ for (i = 0; i < frames; i++)
 
 // rename stack appropriately at the end
 rename(imNameSh + "_EDoF.tif");
+
+run("Properties...", "channels=" + channels + " slices=1 frames=" + frames + " pixel_width=" + pixX + " pixel_height=" +pixY +" voxel_depth=" +pixZ +" frame=["+ frameInterval +" sec]");
+
